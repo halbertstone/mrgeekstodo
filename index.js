@@ -39,6 +39,35 @@ server.route(
     }
 );
 
+server.route(
+    {
+      method: "GET",
+      path: "/todos",
+      handler: function (request, reply) {
+        reply(todos);
+      }
+    }
+    
+);
+//===
+//  Adding the ToDos 
+//
+var todos = [
+  {
+    todo: "take a nap",
+    note: "note for nap"
+  },
+  {
+    todo: "Buy a Book",
+    note: "Note for book"
+  },
+  {
+    todo: "Read a Blog",
+    note: "Note for Blog"
+  }
+
+];
+
 //
 server.start(  
 	function() {
