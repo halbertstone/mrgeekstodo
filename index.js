@@ -47,8 +47,22 @@ server.route(
         reply(todos);
       }
     }
-    
 );
+
+server.route({
+  method: 'GET',
+  path: '/todo/{id}',
+  handler: function (request, reply) {
+    if (request.params.id) {
+      console.log(todos.length);
+      if (todos.length < request.params.id) {
+        return reply('No item found.').code(404);
+      }
+      return reply(todos[request.params.id-1]);
+    }
+    reply(todos);
+  }
+});
 //===
 //  Adding the ToDos 
 //
