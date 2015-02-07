@@ -49,21 +49,44 @@ server.route(
     }
 );
 
-server.route({
-  method: 'GET',
-  path: '/todo/{id}',
-  handler: function (request, reply) {
-    if (request.params.id) {
-      console.log(todos.length);
-      if (todos.length < request.params.id) {
-        return reply('No item found.').code(404);
-      }
-      return reply(todos[request.params.id-1]);
-    }
-    reply(todos);
-  }
-});
-//===
+//server.route({
+//  method: 'GET',
+//  path: '/todo/{id}',
+//  handler: function (request, reply) {
+//    if (request.params.id) {
+//      console.log(todos.length);
+//      if (todos.length < request.params.id) {
+//        return reply('No item found.').code(404);
+//      }
+//      return reply(todos[request.params.id-1]);
+//    }
+//    reply(todos);
+//  }
+//});
+
+//server.route (
+//  {
+//    method: 'POST',
+//    path:   '/todos',
+//    config: {
+//      handler:  function (request, reply) {
+//                   var newTodo = {
+//                     todo: request.payload.todo,
+//                     note: request.payload.note
+//                   };
+//                   todos.push(newTodo);
+//                  reply(todos);
+//                },
+//                validate: {
+//                      payload: {
+//                         todo: Joi.string().required(),
+//                         note: Joi.string().required()
+//                      }
+//                }
+//    }// config:
+//  });
+
+//====================================================//
 //  Adding the ToDos 
 //
 var todos = [
@@ -82,7 +105,9 @@ var todos = [
 
 ];
 
-//
+
+
+//=============================================================================//
 server.start(  
 	function() {
   console.log('Server running at :', server.info.uri);
