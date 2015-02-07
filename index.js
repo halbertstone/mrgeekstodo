@@ -64,6 +64,7 @@ server.route({
   }
 });
 
+// curl -X POST -H "Content-Type: application/json" -d '{"todo":"Build API", "note":"Hapi is is amazing"}' -i http://localhost:8080/todos
 server.route (
   {
     method: 'POST',
