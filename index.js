@@ -87,6 +87,22 @@ server.route (
     }// config:
   });
 
+// curl -X DELETE http://localhost:8080/todo/2 -i
+server.route ({
+  method: 'DELETE',
+  path: '/todo/{index}',
+  handler: function (request, reply) {
+    if (todos.length < request.params.id) {
+      return reply ('Not Todo found at index: '+request.params.id).code(404);
+    } 
+    else {
+      todos.splice ((request.params.id-1), 1);
+      reply(true);
+    }
+  }
+});
+
+
 //====================================================//
 //  Adding the ToDos 
 //
