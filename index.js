@@ -97,7 +97,7 @@ server.route ({
     } 
     else {
       todos.splice ((request.params.id-1), 1);
-      reply(true);
+      reply(true+" Deleted Todo item "+ request.params.id +"\n"+ todos);
     }
   }
 });
