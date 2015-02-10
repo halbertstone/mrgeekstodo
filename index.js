@@ -131,3 +131,27 @@ server.start(
 	}
 );
 
+//
+//=========================//
+// Adding DB connection Stuff
+
+var dbOpts = {
+  "url": "mongodb://localhost:27017/mytodos",
+  "options" : {
+    "db" : { 
+      "native_parser" : false 
+    }
+  }
+};
+
+server.pack.require ( 'hapi-mongodb', dbOpts, function(err) {
+  if(err) {
+    console.err(err);
+    throw err;
+  }
+ }    );
+
+
+
+
+
