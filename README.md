@@ -16,3 +16,6 @@ Learn about module.exports
 http://www.sitepoint.com/understanding-module-exports-exports-node-js/
 http://stackoverflow.com/questions/5311334/what-is-the-purpose-of-node-js-module-exports-and-how-do-you-use-it
 http://nodejs.org/api/modules.html#modules_module_exports
+
+Another Example 
+https://github.com/geek/hapi-example

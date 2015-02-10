@@ -1,5 +1,6 @@
 var Hapi = require('hapi');
 var Joi = require('joi');
+var Boom = require("boom");
 
 var server = new Hapi.Server();
 server.connection({port: 8080});
@@ -131,3 +132,30 @@ server.start(
 	}
 );
 
+//
+//=========================//
+// Adding DB connection Stuff
+// http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html
+//
+
+
+
+var dbOpts = {
+"url": "mongodb://localhost:27017/test",
+"settings": {
+"db": {
+"native_parser": false
+}
+}
+};
+
+
+server.register({
+register: require('hapi-mongodb'),
+options: dbOpts
+}, function (err) {
+if (err) {
+console.error(err);
+throw err;
+}
+});
