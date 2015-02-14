@@ -1,6 +1,10 @@
-# mrgeekstodo
-Implementing tutorial from Mr. Geek 
+# Implementing tutorial from Mr. Geek: mrgeekstodo
 http://www.mrgeek.me/technology/tutorials/node-js/building-a-rest-api-using-hapi-js-and-mongodb/
+
+Had issues with the hapi-mongodb plugin registration, not sure yet exactly the root cause;
+not able to get server.pack.register to work; found server.register in hapi docs
+a joi validation error occurred, commented out parts till the 'node .' start did not through errors
+
 
 NOTES:
 installed joi	
