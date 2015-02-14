@@ -1,5 +1,6 @@
 var Hapi = require('hapi');
 var Joi = require('joi');
+var Boom = require("boom");
 
 var server = new Hapi.Server();
 server.connection({port: 8080});
@@ -124,10 +125,91 @@ var todos = [
 
 
 
+
+//
+//=========================//
+// Adding DB connection Stuff
+//======
+// http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html
+//======
+//
+var dbOpts = {
+  "url"     : "mongodb://localhost:27017/mytodos",
+  "options" : { 
+         "db" : { 
+                   "native_parser"  : false
+         }
+   }
+};
+
+//======
+//http://hapijs.com/api#serverregisterplugins-options-callback
+//======
+//Register hapi-mongodb plugin as demo from README.md
+//======
+server.register( 
+   // plugin
+   {
+     register:   require('hapi-mongodb')
+ 
+        //======
+        // options not allowed; validation error from joi/lib/errors.js:74:17)
+        // RESULT from 'node .'
+        //{ [ValidationError: single value of value fails because options is not allowed]
+        //  name: 'ValidationError',
+        //    details: 
+        //       [ { message: 'single value of value fails because options is not allowed',
+        //           path: '0',
+        //           type: 'array.includesOneSingle',
+        //           context: [Object] } ],
+        //        _object: 
+        //            { url: 'mongodb://localhost:27017/mytodos',
+        //              options: { db: [Object] } },
+        //        annotate: [Function] }
+        //
+        // /Users/halbertstone/MEAN_STUFF/mrgeekstodo/index.js:183
+        //           throw err;
+        //                 ^
+        // ValidationError: single value of value fails because options is not allowed
+        //    at Object.exports.process (/Users/halbertstone/MEAN_STUFF/mrgeekstodo/node_modules/hapi-mongodb/node_modules/joi/lib/errors.js:74:17)
+        //
+        //======
+        // COMMENTED OUT DUE TO VALIDATION ERROR
+    // , options:    dbOpts
+   }
+		//======
+		// 
+		//======
+		//       options: {
+		//              ^
+		//  SyntaxError: Unexpected token :
+		//      at Module._compile (module.js:439:25)
+		//      at Object.Module._extensions..js (module.js:474:10)
+		//      at Module.load (module.js:356:32)
+		//      at Function.Module._load (module.js:312:12)
+		//      at Function.Module.runMain (module.js:497:10)
+		//      at startup (node.js:119:16)
+		//      at node.js:929:3
+		//~/MEAN_STUFF/mrgeekstodo/$ 
+		//   , //Options
+		//      options: {
+		//      message: 'hello'
+		//  }
+
+   , // callback
+     function(err) {
+        if (err) {
+          console.error(err);
+          throw err;
+        }
+  }
+);
+
+
 //=============================================================================//
+
 server.start(  
 	function() {
   console.log('Server running at :', server.info.uri);
 	}
 );
-
