@@ -49,22 +49,9 @@ server.route(
       }
     }
 );
-
-server.route({
-  method: 'GET',
-  path: '/todo/{id}',
-  handler: function (request, reply) {
-    if (request.params.id) {
-      console.log(todos.length);
-      if (todos.length < request.params.id) {
-        return reply('No item found.').code(404);
-      }
-      return reply(todos[request.params.id-1]);
-    }
-    reply(todos);
-  }
-});
-
+//-------
+//-- curl request to POST some new todos
+// curl -X POST -H "Content-Type: application/json" -d '{"todo":"HalWasHere", "note":"theNOTE"}' -i http://localhost:8080/todos
 // curl -X POST -H "Content-Type: application/json" -d '{"todo":"Build API", "note":"Hapi is is amazing"}' -i http://localhost:8080/todos
 server.route (
   {
@@ -104,26 +91,44 @@ server.route ({
 });
 
 
-//====================================================//
-//  Adding the ToDos 
+////====================================================//
+////  Adding the ToDos as in memory object
+////  Useful for testing before the MongoDB is set up
+////
+//var todos = [
+//  {
+//    todo: "take a nap",
+//    note: "note for nap"
+//  },
+//  {
+//    todo: "Buy a Book",
+//    note: "Note for book"
+//  },
+//  {
+//    todo: "Read a Blog",
+//    note: "Note for Blog"
+//  }
 //
-var todos = [
-  {
-    todo: "take a nap",
-    note: "note for nap"
-  },
-  {
-    todo: "Buy a Book",
-    note: "Note for book"
-  },
-  {
-    todo: "Read a Blog",
-    note: "Note for Blog"
-  }
-
-];
-
-
+//];
+//
+////=================================================//
+////  This works with the in memory todos above
+//server.route({
+//  method: 'GET',
+//  path: '/todo/{id}',
+//  handler: function (request, reply) {
+//    if (request.params.id) {
+//      console.log(todos.length);
+//      if (todos.length < request.params.id) {
+//        return reply('No item found.').code(404);
+//      }
+//      return reply(todos[request.params.id-1]);
+//    }
+//    reply(todos);
+//  }
+//});
+//
+//
 
 
 //
