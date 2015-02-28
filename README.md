@@ -5,16 +5,40 @@ Had issues with the hapi-mongodb plugin registration, not sure yet exactly the r
 not able to get server.pack.register to work; found server.register in hapi docs
 a joi validation error occurred, commented out parts till the 'node .' start did not through errors
 
+// DB connection Stuff that finally worked
+//======
+// http://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.
+//======
+//
+var dbOpts = {
+"url"     : "mongodb://localhost:27017/mytodos",
+"options" : {
+    "db" : {
+        "native_parser"  : false
+        }
+    }
+};
+
+server.register(
+    // plugin
+    {
+      register: require('hapi-mongodb')
+    }
+    , // callback
+        function(err) {
+            if (err) {
+                console.error(err);
+                throw err;
+            }
+    }
+);
+
+
 
 NOTES:
 installed joi	
 
 ~/$ npm install joi
-joi@5.1.0 node_modules/joi
-|___ topo@1.0.2
-|___ isemail@1.1.1
-|___ hoek@2.11.0
-|___ moment@2.9.0
 
 Learn about module.exports
 http://www.sitepoint.com/understanding-module-exports-exports-node-js/
